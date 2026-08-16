@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: matrix-chat-relay
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: CHAT_TOKEN
+        sync: false
