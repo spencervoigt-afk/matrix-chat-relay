@@ -64,8 +64,9 @@ wss.on('connection', (ws) => {
         clearTimeout(authTimeout);
         ws.authed = true;
         ws.name = String(msg.name || 'anon').slice(0, 32);
+        const peerOnline = clients.length > 0;
         clients.push(ws);
-        send(ws, { type: 'auth_ok' });
+        send(ws, { type: 'auth_ok', peerOnline });
         broadcastToOthers(ws, { type: 'system', text: `${ws.name} has connected.` });
       } else {
         send(ws, { type: 'error', text: 'Bad token.' });
